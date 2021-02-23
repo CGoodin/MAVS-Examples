@@ -1,7 +1,11 @@
+''' 
+Example script for creating a MAVS vehicle and driving it
+with the W-A-S-D keys.
+'''
 import time
 import sys
 # Set the path to the mavs python api, mavs.py
-sys.path.append(r'C:/path/to/mavs/src/mavs_python')
+sys.path.append(r'C:\your\path\to\mavs\src\mavs_python')
 # Load the mavs python modules
 import mavs_interface as mavs
 import mavs_python_paths
