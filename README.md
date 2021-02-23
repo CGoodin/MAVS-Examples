@@ -1,8 +1,7 @@
 # MAVS-Examples
 This repo contains example applications using the MSU Autonomous Vehicle Simulator (MAVS) and papers written using MAVS.
 
-MAVS is a software library for simulating autonomous ground vehicles in off-road terrain. It simulates the sensors, vehicle, and environment. MAVS uses physics-based models to simulate camera, lidar, and radar interacting with environmental features such as rain, dust, and fog.
-
+MAVS is a software library for simulating autonomous ground vehicles in off-road terrain. Written in C++, MAVS also has interfaces to  Python. MAVS simulates the sensors, vehicle, and environment. It uses physics-based models to simulate camera, lidar, and radar interacting with environmental features such as rain, dust, and fog.
 
 
 Software documentation for the MAVS library is here:
