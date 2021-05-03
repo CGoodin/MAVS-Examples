@@ -36,10 +36,8 @@ random_scene.TurnOnLabeling()
 #--- Load the waypoints that go with this scene ----#
 waypoints = mavs.MavsWaypoints()
 waypoints.Load('./'+random_scene.basename+'_path.vprp')
-# Get the scene geometry and put the waypoints on the ground
-scene = mavs.MavsEmbreeScene()
-scene.Load(scene_name+'_scene.json')
-waypoints.PutWaypointsOnGround(scene)
+# Put the waypoints on the ground
+waypoints.PutWaypointsOnGround(random_scene)
 
 #----- Environment Creation ---------------------------#
 # Create a MAVS environment and add the scene to it
