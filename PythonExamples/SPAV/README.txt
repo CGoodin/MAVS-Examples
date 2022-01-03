@@ -1,3 +1,7 @@
+IMPORTANT - To run these examples, you must edit line 18 of 
+'mavs_spav_simulation.py' to have the file path to YOUR installation
+of MAVS.
+
 The examples in this folder are specific to the 
 
 Sensing and Perception for Autonomous Vehicles (SPAV) 
