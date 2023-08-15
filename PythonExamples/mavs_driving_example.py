@@ -47,6 +47,10 @@ drive_cam.SetGammaAndGain(0.5,2.0)
 # Turn off shadows for this camera if it is slow on your system
 drive_cam.RenderShadows(True)
 
+# Create the lidar and set the offset
+lidar = mavs.MavsLidar('VLP-16')
+lidar.SetOffset([0.0, 0.0, 1.830],[1.0,0.0,0.0,0.0])
+
 # Now start the simulation main loop
 dt = 1.0/30.0 # time step, seconds
 n = 0 # loop counter
@@ -64,10 +68,6 @@ while (True):
     position = veh.GetPosition()
     orientation = veh.GetOrientation()
 
-    # Update the animated vehicle position
-    # The Ego-Vehicle is always actor 0
-    env.SetActorPosition(0,position,orientation)
-
     # Update the camera sensors at 10 Hz
     # Each sensor calls three functions
     # "SetPose" aligns the sensor with the current vehicle position,
@@ -79,6 +79,9 @@ while (True):
         drive_cam.SetPose(position,orientation)
         drive_cam.Update(env,dt)
         drive_cam.Display()
+        lidar.SetPose(position,orientation)
+        lidar.Update(env,dt)
+        lidar.Display()
     # uncomment the following lines to get some state
     # variables for the vehicle 
     #long_acc = veh.GetLongitudinalAcceleration()
