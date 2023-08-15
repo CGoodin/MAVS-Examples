@@ -19,7 +19,7 @@ scene.Load(mavs_data_path+mavs_scenefile)
 
 # Create a MAVS environment and add the scene to it
 env = mavs.MavsEnvironment()
-env.SetScene(scene.scene)
+env.SetScene(scene)
 
 # Set environment properties
 env.SetTime(13) # 0-23
