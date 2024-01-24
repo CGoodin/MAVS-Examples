@@ -42,7 +42,7 @@ waypoints.PutWaypointsOnGround(random_scene)
 #----- Environment Creation ---------------------------#
 # Create a MAVS environment and add the scene to it
 env = mavs.MavsEnvironment()
-env.SetScene(random_scene.scene)
+env.SetScene(random_scene)
 env.SetTurbidity(float(random.randrange(2,7)))
 
 # loop over all the poses in the waypoints list
