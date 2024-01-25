@@ -15,7 +15,7 @@ Note that it may take 1-2 minutes for everything to load.
 import sys
 # Set the path to the mavs python api, mavs.py
 # You will need to edit the following path to match the location on your computer
-sys.path.append(r'full/path/to/mavs/src/mavs_python')
+sys.path.append(r'C:/mavs-binaries/mavs_python')
 # Load the mavs python modules
 import mavs_interface as mavs
 import mavs_python_paths
@@ -49,11 +49,11 @@ class MavsSpavSimulation(object):
         # https://cgoodin.gitlab.io/msu-autonomous-vehicle-simulator/classmavs__python_1_1mavs__interface_1_1_mavs_camera.html
         # Create a MAVS camera and set its properties
         self.cam = mavs.MavsCamera()
-        # Options are "XCD-V60", "MachineVision", "Flea", or "HD1080"
-        self.cam.Model('MachineVision')
+        # num_horizontal_pix, num_vert_pix, horiz_image_plane_size_meters, vert_image_plane_size_meters, focal_length_meters
+        self.cam.Initialize(640,360,0.006222,0.0035,0.0035)
         self.cam.RenderShadows(True)
         # Increasing anti-aliasing will slow down simulation but gives nicer images
-        self.cam.SetAntiAliasingFactor(2)
+        self.cam.SetAntiAliasingFactor(4)
         # If raining, render drops splattered on the lens
         self.cam.SetDropsOnLens(True)
         # Set the gamma (0-1.0) and gain (0-2.0) of the camera
@@ -66,13 +66,15 @@ class MavsSpavSimulation(object):
         # window must be highlighted to input driving commands
         self.drive_cam = mavs.MavsCamera()
         # nx,ny,dx,dy,focal_len
-        self.drive_cam.Initialize(256,256,0.0035,0.0035,0.0035)
+        self.drive_cam.Initialize(512,512,0.0035,0.0035,0.0035)
         # offset of camera from vehicle CG
         self.drive_cam.SetOffset([-10.0,0.0,3.0],[1.0,0.0,0.0,0.0])
         # Set camera compression and gain
-        self.drive_cam.SetGammaAndGain(0.5,2.0)
+        self.drive_cam.SetGammaAndGain(0.75,2.0)
         # Turn off shadows for this camera for efficiency purposes
-        self.drive_cam.RenderShadows(False)
+        self.drive_cam.RenderShadows(True)
+        # Turn on anti-aliasing
+        self.drive_cam.SetAntiAliasingFactor(3)
 
         # https://cgoodin.gitlab.io/msu-autonomous-vehicle-simulator/classmavs__python_1_1mavs__interface_1_1_mavs_lidar.html
         # Create a MAVS lidar and set its properties
