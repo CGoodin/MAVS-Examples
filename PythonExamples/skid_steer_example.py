@@ -1,13 +1,5 @@
-import time
-import sys
 import math
-# Set the path to the mavs python api, mavs.py
-sys.path.append(r'C:/your/path/to/mavs/src/mavs_python')
-# Load the mavs python modules
-import mavs_interface as mavs
-import mavs_python_paths
-# Set the path to the mavs data folder
-mavs_data_path = mavs_python_paths.mavs_data_path
+import mavspy.mavs as mavs
 
 # create a path for the vehicle to follow
 path_amplitude = 5.0
@@ -22,14 +14,14 @@ while x<path_length:
 # Load a MAVS scene and add it to the environment
 mavs_scenefile = "/scenes/surface_only.json"
 scene = mavs.MavsEmbreeScene()
-scene.Load(mavs_data_path+mavs_scenefile)
+scene.Load(mavs.mavs_data_path+mavs_scenefile)
 env = mavs.MavsEnvironment()
 env.SetScene(scene)
 
 # Create a MAVS vehicle
 veh = mavs.MavsRp3d()
 veh_file = 'clearpath_warthog_cpu_tires.json'
-veh.Load(mavs_data_path+'/vehicles/rp3d_vehicles/' + veh_file)
+veh.Load(mavs.mavs_data_path+'/vehicles/rp3d_vehicles/' + veh_file)
 veh.SetInitialPosition(0.0, 0.0, 0.0) # in global ENU
 veh.SetInitialHeading(0.0) # in radians
 

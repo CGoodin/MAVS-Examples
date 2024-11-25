@@ -3,13 +3,7 @@ Example that simulates a maximum speed on grade test for a user defined surface.
 You can set the surface type, soil strength, and slope and get the max speed.
 '''
 import sys
-# Set the path to the mavs python api, mavs_interface.py
-sys.path.append(r'C:\your\path\to\mavs\src\mavs_python')
-# Load the mavs python modules
-import mavs_interface
-import mavs_python_paths
-# Set the path to the mavs data folder
-mavs_data_path = mavs_python_paths.mavs_data_path
+import mavspy.mavs as mavs
 
 # Set the soil and terrain properties
 # soil type can be 'dry', 'wet', 'snow', 'clay', or 'sand'.
@@ -20,18 +14,18 @@ soil_strength = 100.0
 surface_slope = 0.0
 
 # Load a MAVS scene, the exact scene doesn't matter for this test
-scene = mavs_interface.MavsEmbreeScene()
-scene.Load(mavs_data_path + "/scenes/cube_scene.json")
+scene = mavs.MavsEmbreeScene()
+scene.Load(mavs.mavs_data_path + "/scenes/cube_scene.json")
 
 # Create a MAVS environment and add the scene to it
-env = mavs_interface.MavsEnvironment()
+env = mavs.MavsEnvironment()
 env.SetScene(scene.scene)
 
 #Create and load a MAVS vehicle
-veh = mavs_interface.MavsRp3d()
+veh = mavs.MavsRp3d()
 # vehicle files can be found in mavs/data/vehicles/rp3d_vehicles
-veh_file = 'forester_2017_rp3d.json'
-veh.Load(mavs_data_path+'/vehicles/rp3d_vehicles/' + veh_file)
+veh_file = 'forester_2017_rp3d_tires.json'
+veh.Load(mavs.mavs_data_path+'/vehicles/rp3d_vehicles/' + veh_file)
 veh.SetInitialPosition(0.0, 0.0, 0.0) # in global ENU
 veh.SetInitialHeading(0.0) # in radians
 
@@ -43,14 +37,14 @@ veh.SetTerrainProperties(terrain_type='sloped',terrain_param1=surface_slope, ter
 # Load waypoints and create controller to follow them
 # Waypoint files are in mavs/data/waypoints
 # These waypoints are just a straight line
-waypoints = mavs_interface.MavsWaypoints()
+waypoints = mavs.MavsWaypoints()
 waypoints_file = 'x_axis_points.vprp'
-waypoints.Load(mavs_data_path+'/waypoints/'+waypoints_file)
+waypoints.Load(mavs.mavs_data_path+'/waypoints/'+waypoints_file)
 waypoints.FillIn(0.5)
 # Now create a vehicle controller to adjust the throttle and steering
 # Check the API for more info on the params
 # https://cgoodin.gitlab.io/msu-autonomous-vehicle-simulator/classmavs__python_1_1mavs__interface_1_1_mavs_vehicle_controller.html
-controller = mavs_interface.MavsVehicleController()
+controller = mavs.MavsVehicleController()
 controller.SetDesiredPath(waypoints.GetWaypoints2D())
 controller.SetDesiredSpeed(200.0) # m/s, set to an absurdly high number 
 controller.SetSteeringScale(2.35)

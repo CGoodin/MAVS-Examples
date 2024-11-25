@@ -11,20 +11,14 @@ autonomy_example.py
 
 Note that it may take 1-2 minutes for everything to load.
 """
-# The first step is to make a system call to load the python interface modules
-import sys
-# Set the path to the mavs python api, mavs.py
-# You will need to edit the following path to match the location on your computer
-sys.path.append(r'C:/mavs-binaries/mavs_python')
-# Load the mavs python modules
-import mavs_interface as mavs
-import mavs_python_paths
+# Load the MAVS module
+import mavspy.mavs as mavs
 
 class MavsSpavSimulation(object):
     def __init__(self):
 
         # Set the path to the mavs data folder
-        mavs_data_path = mavs_python_paths.mavs_data_path
+        mavs_data_path = mavs.mavs_data_path
 
         # https://cgoodin.gitlab.io/msu-autonomous-vehicle-simulator/classmavs__python_1_1mavs__interface_1_1_mavs_scene.html
         # Specify a scene and load it

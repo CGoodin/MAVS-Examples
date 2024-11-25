@@ -3,14 +3,8 @@ Script for measuring the VCI1 of a vehicle
 '''
 import time
 import sys
-# Set the path to the mavs python api, mavs.py
-sys.path.append(r'C:\your\path\to\mavs\src\mavs_python')
-# Load the mavs python modules
-import mavs_interface as mavs
-import mavs_python_paths
-# Set the path to the mavs data folder
-mavs_data_path = mavs_python_paths.mavs_data_path
-    
+import mavspy.mavs as mavs
+
 render = False
 if (len(sys.argv)>1):
     arg = int(sys.argv[1])
@@ -21,7 +15,7 @@ if (len(sys.argv)>1):
 mavs_scenefile = "/scenes/surface_only.json"
 #mavs_scenefile = "/scenes/surface_scene.json"
 scene = mavs.MavsEmbreeScene()
-scene.Load(mavs_data_path+mavs_scenefile)
+scene.Load(mavs.mavs_data_path+mavs_scenefile)
 
 # Create a MAVS environment and add the scene to it
 env = mavs.MavsEnvironment()
@@ -29,8 +23,8 @@ env.SetScene(scene)
 
 #Create and load a MAVS vehicle
 veh = mavs.MavsRp3d()
-veh_file = 'hmmwv_rp3d_tires.json'
-veh.Load(mavs_data_path+'/vehicles/rp3d_vehicles/' + veh_file)
+veh_file = 'forester_2017_rp3d_tires.json'
+veh.Load(mavs.mavs_data_path+'/vehicles/rp3d_vehicles/' + veh_file)
 veh.SetInitialPosition(0.0, 0.0, 0.0) # in global ENU
 veh.SetInitialHeading(0.0) # in radians
 veh.Update(env, 0.0, 0.0, 1.0, 0.000001)
@@ -48,7 +42,7 @@ drive_cam.RenderShadows(True)
 waypoints = mavs.MavsWaypoints()
 #waypoints_file = 'spa_city_outer_loop.vprp'
 waypoints_file = 'x_axis_points.vprp'
-waypoints.Load(mavs_data_path+'/waypoints/'+waypoints_file)
+waypoints.Load(mavs.mavs_data_path+'/waypoints/'+waypoints_file)
 waypoints.FillIn(0.5)
 controller = mavs.MavsVehicleController()
 controller.SetDesiredPath(waypoints.GetWaypoints2D())

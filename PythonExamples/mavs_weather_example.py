@@ -3,23 +3,16 @@ Example script for creating a MAVS vehicle and driving it
 with the W-A-S-D keys.
 '''
 import time
-import sys
-# Set the path to the mavs python api, mavs.py
-sys.path.append(r'C:\your\path\to\mavs\src\mavs_python')
-# Load the mavs python modules
-import mavs_interface as mavs
-import mavs_python_paths
-# Set the path to the mavs data folder
-mavs_data_path = mavs_python_paths.mavs_data_path
+import mavspy.mavs as mavs
 
 # Select a scene and load it
 mavs_scenefile = "/scenes/cube_scene.json"
 scene = mavs.MavsEmbreeScene()
-scene.Load(mavs_data_path+mavs_scenefile)
+scene.Load(mavs.mavs_data_path+mavs_scenefile)
 
 # Create a MAVS environment and add the scene to it
 env = mavs.MavsEnvironment()
-env.SetScene(scene.scene)
+env.SetScene(scene)
 
 # Set environment properties
 env.SetTime(13) # 0-23
@@ -35,7 +28,7 @@ env.SetWind([0.0,2.0]) # wind lateral velocity (m/s)
 veh = mavs.MavsRp3d()
 # vehicle files are in the mavs "data/vehicles/rp3d_vehicles" folder
 veh_file = 'forester_2017_rp3d_tires.json'
-veh.Load(mavs_data_path+'/vehicles/rp3d_vehicles/' + veh_file)
+veh.Load(mavs.mavs_data_path+'/vehicles/rp3d_vehicles/' + veh_file)
 # Starting point for the vehicle
 veh.SetInitialPosition(100.0, 0.0, 0.0) # in global ENU
 # Initial Heading for the vehicle, 0=X, pi/2=Y, pi=-X
