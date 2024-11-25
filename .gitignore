@@ -1,2 +1,4 @@
 .vscode
 *__pycache__
+mavs_config.txt
+*mavs_config.txt
