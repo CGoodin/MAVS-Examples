@@ -1,3 +1,8 @@
+''' 
+Us MAVS to create a skid steered vehicle,
+in this case the Clearpath Warthog.
+Drive it with the W-A-S-D keys.
+'''
 import math
 import mavspy.mavs as mavs
 
@@ -25,15 +30,6 @@ veh.Load(mavs.mavs_data_path+'/vehicles/rp3d_vehicles/' + veh_file)
 veh.SetInitialPosition(0.0, 0.0, 0.0) # in global ENU
 veh.SetInitialHeading(0.0) # in radians
 
-# Create a vehicle controller
-controller = mavs.MavsVehicleController()
-controller.SetDesiredSpeed(5.0) # m/s for correction
-controller.SetSteeringScale(4.0)
-controller.SetWheelbase(2.4) # meters
-controller.SetMaxSteerAngle(0.38) # radians
-# Set the desired path using the path created above
-controller.SetDesiredPath(desired_path)
-
 # Add a camera for visualizing the results
 front_cam = mavs.MavsCamera()
 front_cam.Initialize(256,256, 0.0035,0.0035,0.0035)
@@ -45,9 +41,9 @@ front_cam.SetOffset([-15.0, 0.0, 2.0],[1.0, 0.0, 0.0, 0.0])
 dt = 1.0/120.0 # time step, seconds
 n = 0 # loop counter
 while veh.GetPosition()[0]<0.95*path_length:
-    # Update the controller and get the driving command
-    controller.SetCurrentState(veh.GetPosition()[0],veh.GetPosition()[1],veh.GetSpeed(),veh.GetHeading())
-    dc = controller.GetDrivingCommand(dt)
+
+    # Get the driving command
+    dc = front_cam.GetDrivingCommand()
     
     # Update the vehicle with the driving command
     veh.Update(env, dc.throttle, dc.steering, dc.braking, dt)

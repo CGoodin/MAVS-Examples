@@ -1,6 +1,5 @@
 '''
-Example of using the MavsRandomScene to generate a rough surface.
-Explains parameters for creating a rough surface and makes a rendering.
+Create a rough terrain from an input .bmp heightmap
 '''
 import mavspy.mavs as mavs
 

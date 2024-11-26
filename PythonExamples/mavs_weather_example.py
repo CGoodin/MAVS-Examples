@@ -1,5 +1,6 @@
 ''' 
-Example script for creating a MAVS vehicle and driving it
+Driving example with different weather effects.
+Create a MAVS vehicle and driving it
 with the W-A-S-D keys.
 '''
 import time
@@ -51,7 +52,6 @@ drive_cam.SetOffset([-12.5,0.0,2.0],[1.0,0.0,0.0,0.0])
 drive_cam.SetGammaAndGain(0.5,2.0)
 # Turn off shadows for this camera if it is slow on your system
 drive_cam.RenderShadows(True)
-
 
 # Create the lidar and set the offset relative to the vehicle CG
 lidar = mavs.MavsLidar('VLP16')

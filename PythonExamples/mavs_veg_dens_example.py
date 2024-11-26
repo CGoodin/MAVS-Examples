@@ -1,8 +1,5 @@
 '''
-Example of using the MavsRandomScene to generate a scene
-and then measure the vegetation density of the scene with the
-"GetVegDensityOnAGrid" method. Shows how to plot the veg density
-in elevation slices
+Get a "ground truth" vegetation density from a grassy scene.
 '''
 import matplotlib.pyplot as plt
 import numpy as np

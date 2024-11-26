@@ -1,6 +1,6 @@
 ''' 
 Script for generating labeled lidar and camera data.
-Shows how to create a MAVS scene, add it to an environment,
+Shows how to load a MAVS scene, add it to an environment,
 and generate labeled sensor data.
 '''
 import random
