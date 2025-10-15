@@ -23,7 +23,7 @@ env.SetTime(13) # 0-23
 #Create and load a MAVS vehicle
 veh = mavs.MavsRp3d()
 # vehicle files are in the mavs "data/vehicles/rp3d_vehicles" folder
-veh_file = 'forester_2017_rp3d_tires.json'
+veh_file = 'mrzr4_tires_low_gear.json'
 veh.Load(mavs_data_path+'/vehicles/rp3d_vehicles/' + veh_file)
 # Starting point for the vehicle
 veh.SetInitialPosition(100.0, 0.0, 0.0) # in global ENU
@@ -35,7 +35,7 @@ veh.Update(env, 0.0, 0.0, 1.0, 0.000001)
 # window must be highlighted to input driving commands
 drive_cam = mavs.MavsCamera()
 # nx,ny,dx,dy,focal_len
-drive_cam.Initialize(256,256,0.0035,0.0035,0.0035)
+drive_cam.Initialize(512,512,0.0035,0.0035,0.0035)
 # offset of camera from vehicle CG
 drive_cam.SetOffset([-10.0,0.0,3.0],[1.0,0.0,0.0,0.0])
 # Set camera compression and gain
@@ -48,7 +48,7 @@ lidar = mavs.MavsLidar('VLP-16')
 lidar.SetOffset([0.0, 0.0, 1.830],[1.0,0.0,0.0,0.0])
 
 # Now start the simulation main loop
-dt = 1.0/30.0 # time step, seconds
+dt = 1.0/100.0 # time step, seconds
 n = 0 # loop counter
 while (True):
     # tw0 is for timing purposes used later
@@ -70,14 +70,14 @@ while (True):
     # the offset is automatically included.
     # "Update" creates new sensor data, point cloud or image
     # "Display" is optional and opens a real-time display window
-    if n%3==0:
+    if n%10==0:
         # Update the drive camera at 10 Hz
         drive_cam.SetPose(position,orientation)
         drive_cam.Update(env,dt)
         drive_cam.Display()
-        lidar.SetPose(position,orientation)
-        lidar.Update(env,dt)
-        lidar.Display()
+        #lidar.SetPose(position,orientation)
+        #lidar.Update(env,dt)
+        #lidar.Display()
     # uncomment the following lines to get some state
     # variables for the vehicle 
     #long_acc = veh.GetLongitudinalAcceleration()
@@ -90,7 +90,7 @@ while (True):
     # The following lines ensure that the sim
     # doesn't run faster than real time, which 
     # makes it hard to drive
-    tw1 = time.time()
-    wall_dt = tw1-tw0
-    if (wall_dt<dt):
-        time.sleep(dt-wall_dt)
+    #tw1 = time.time()
+    #wall_dt = tw1-tw0
+    #if (wall_dt<dt):
+    #    time.sleep(dt-wall_dt)
