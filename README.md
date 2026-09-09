@@ -4,11 +4,24 @@ This repo contains example applications using the MSU Autonomous Vehicle Simulat
 MAVS is a software library for simulating autonomous ground vehicles in off-road terrain. MAVS simulates the sensors, vehicle, and environment. It uses physics-based models to simulate camera, lidar, and radar interacting with environmental features such as rain, dust, and fog.
 
 
-These examples use the Python interface to MAVS, [MavsPy](https://pypi.org/project/mavspy/). 
+These examples use the Python interface to MAVS, [MavsPy](https://github.com/CGoodin/mavspy). MavsPy is installed by downloading the Linux or Windows Python wheel file from the MavsPy repo, then installing it using pip.
 
-MavsPy can be installed using the Python package installer, PiP, with the following command:
+On Windows:
 ```
-$pip install mavspy
+curl -L -O https://github.com/CGoodin/mavspy/releases/download/v1.0.33/mavspy-1.0.33-py3-none-win_amd64.whl
+pip install mavspy-1.0.33-py3-none-win_amd64.whl
+```
+
+On Linux:
+```
+curl -L -O https://github.com/CGoodin/mavspy/releases/download/v1.0.33/mavspy-1.0.33-py3-none-linux_x86_64.whl
+pip install mavspy-1.0.33-py3-none-linux_x86_64.whl
+```
+
+
+Test the install:
+```
+python -c "import mavspy; print('mavspy imported successfully')"
 ```
 
 Once installed, these examples can be run using Python:

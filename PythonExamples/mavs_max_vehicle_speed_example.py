@@ -19,7 +19,7 @@ scene.Load(mavs.mavs_data_path + "/scenes/cube_scene.json")
 
 # Create a MAVS environment and add the scene to it
 env = mavs.MavsEnvironment()
-env.SetScene(scene.scene)
+env.SetScene(scene)
 
 #Create and load a MAVS vehicle
 veh = mavs.MavsRp3d()

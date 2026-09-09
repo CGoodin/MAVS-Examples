@@ -1,13 +1,7 @@
 import math
-import sys
-# Set the path to wheverver you cloned and built the MAVS software
-# see: https://mississippi-state-university-otm.github.io/MAVS/docs/MavsBuildInstructions.html
-sys.path.append(r'C:/Users/YourUserName/PathToMavs/mavs/src/mavs_python')
-
-# import MAVS and set the default data path
-import mavs_interface as mavs
-import mavs_python_paths
-mavs_data_path = mavs_python_paths.mavs_data_path
+# Import MAVS
+import mavspy.mavs as mavs
+mavs_data_path = mavs.mavs_data_path
 
 def CreateTerrains(slope_angle_min_deg, slope_angle_max_deg, slope_angle_step_deg):
     # create the different sloped terrains  

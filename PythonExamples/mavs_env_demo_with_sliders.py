@@ -2,14 +2,11 @@
 # You'll need to have tkinter installed to run it
 # And MAVS built from source.
 # See: https://mississippi-state-university-otm.github.io/MAVS/docs/MavsBuildInstructions.html
-import sys
 import math
 from tkinter import *
-# load the mavs modules. change this file path to your install location
-sys.path.append(r'C:/Users/your_username/path_to/mavs/src/mavs_python')
-import mavs_interface as mavs
-import mavs_python_paths
-mavs_data_path = mavs_python_paths.mavs_data_path
+# Import MAVS
+import mavspy.mavs as mavs
+mavs_data_path = mavs.mavs_data_path
 
 # Tkinter sliderbar widget for changing environmental parameters
 class EnvironmentWindow():
@@ -97,7 +94,7 @@ if __name__ == "__main__":
     env = mavs.MavsEnvironment()
 
     # load a mavs scene and add it to the environment
-    mavs_scenefile = "/scenes/cavs_proving_ground_sparse_trees.json"
+    mavs_scenefile = "/scenes/cube_scene.json"
     scene.Load(mavs_data_path+mavs_scenefile)
     env.SetScene(scene)
 

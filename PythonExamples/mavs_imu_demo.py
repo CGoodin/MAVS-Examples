@@ -6,21 +6,14 @@ import matplotlib.pyplot as plt
 import moviepy.video.io.ImageSequenceClip
 from PIL import Image
 
-#--- Import MAVS --------------------------------------------------------------------- #
-# If you built MAVS from source, modify the following lines to match your install location
-sys.path.append(r'C:/Users/cgoodin/Desktop/goodin_docs/repos/mavs/src/mavs_python')
-import mavs_interface as mavs
-import mavs_python_paths
-mavs_data_path = mavs_python_paths.mavs_data_path
-# if you installed MAVS using pip install mavspy, comment out the foure lines above 
-# and uncomment the two lines below 
-#import mavspy.mavs as mavs
-#mavs_data_path = mavs.mavs_data_path
+# Import MAVS
+import mavspy.mavs as mavs
+mavs_data_path = mavs.mavs_data_path
 
 def SimulateImu():
     #------------------ scene -------------------------------------------------------------------#
     scene = mavs.MavsEmbreeScene()
-    mavs_scenefile = "/scenes/riprap_surface.json"
+    mavs_scenefile = "/scenes/valley_big.json"
     scene.Load(mavs_data_path+mavs_scenefile)
 
     #------------------ environment -------------------------------------------------------------#
@@ -113,7 +106,7 @@ def SimulateImu():
             cam_position = veh.GetPosition()
             yaw = veh.GetHeading()
             cam_orientation = [math.cos(0.5*yaw), 0.0, 0.0, math.sin(0.5*yaw)]
-            cam_position[2]=1.25
+            #cam_position[2]=1.25
             drive_cam.SetPose(cam_position,cam_orientation)
             drive_cam.Update(env,0.05)
             drive_cam.Display()
