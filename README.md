@@ -8,14 +8,14 @@ These examples use the Python interface to MAVS, [MavsPy](https://github.com/CGo
 
 On Windows:
 ```
-curl -L -O https://github.com/CGoodin/mavspy/releases/download/v1.0.34/mavspy-1.0.34-py3-none-win_amd64.whl
-pip install mavspy-1.0.34-py3-none-win_amd64.whl
+curl -L -O https://github.com/CGoodin/mavspy/releases/download/v1.0.35/mavspy-1.0.35-py3-none-win_amd64.whl
+pip install mavspy-1.0.35-py3-none-win_amd64.whl
 ```
 
 On Linux:
 ```
-curl -L -O https://github.com/CGoodin/mavspy/releases/download/v1.0.34/mavspy-1.0.34-py3-none-linux_x86_64.whl
-pip install mavspy-1.0.34-py3-none-linux_x86_64.whl
+curl -L -O https://github.com/CGoodin/mavspy/releases/download/v1.0.35/mavspy-1.0.35-py3-none-linux_x86_64.whl
+pip install mavspy-1.0.35-py3-none-linux_x86_64.whl
 ```
 
 
