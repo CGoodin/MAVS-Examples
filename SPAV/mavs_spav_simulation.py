@@ -35,8 +35,9 @@ class MavsSpavSimulation(object):
         self.env.SetScene(self.scene)
 
         # Set environment properties
-        self.env.SetTime(13) # 0-23
-        self.env.SetFog(50.0) # 0.0-100.0
+        self.env.SetTime(19) # 0-23
+        self.env.SetTurbidity(10.0)
+        self.env.SetFog(0.0) # 0.0-100.0
         self.env.SetRainRate(0.0) # 0-25
         self.env.SetWind( [2.5, 1.0] ) # Horizontal windspeed in m/s
 
@@ -60,15 +61,15 @@ class MavsSpavSimulation(object):
         # window must be highlighted to input driving commands
         self.drive_cam = mavs.MavsCamera()
         # nx,ny,dx,dy,focal_len
-        self.drive_cam.Initialize(512,512,0.0035,0.0035,0.0035)
+        self.drive_cam.Initialize(640,480,0.004375,0.00328125,0.0035)
         # offset of camera from vehicle CG
         self.drive_cam.SetOffset([-10.0,0.0,3.0],[1.0,0.0,0.0,0.0])
         # Set camera compression and gain
-        self.drive_cam.SetGammaAndGain(0.75,2.0)
+        self.drive_cam.SetGammaAndGain(0.95,1.5)
         # Turn off shadows for this camera for efficiency purposes
         self.drive_cam.RenderShadows(True)
         # Turn on anti-aliasing
-        self.drive_cam.SetAntiAliasingFactor(3)
+        self.drive_cam.SetAntiAliasingFactor(2)
 
         # https://cgoodin.gitlab.io/msu-autonomous-vehicle-simulator/classmavs__python_1_1mavs__interface_1_1_mavs_lidar.html
         # Create a MAVS lidar and set its properties
@@ -80,14 +81,14 @@ class MavsSpavSimulation(object):
         #Create and load a MAVS vehicle
         self.veh = mavs.MavsRp3d()
         # vehicle files are in the mavs "data/vehicles/rp3d_vehicles" folder
-        veh_file = 'forester_2017_rp3d_tires.json'
+        veh_file = '350z.json'
         self.veh.Load(mavs_data_path+'/vehicles/rp3d_vehicles/' + veh_file)
         # Starting point for the vehicle
-        self.veh.SetInitialPosition(10.0, 7.5, 0.0) # in global ENU
+        self.veh.SetInitialPosition(-10.0, 5.5, 0.0) # in global ENU
         # Initial Heading for the vehicle, 0=X, pi/2=Y, pi=-X
         self.veh.SetInitialHeading(0.0) # in radians
         # Do a short update step for MAVS to finish loading the vehicle
-        self.veh.Update(self.env, 0.0, 0.0, 1.0, 0.000001)
+        #self.veh.Update(self.env, 0.0, 0.0, 1.0, 0.000001)
 
         # https://cgoodin.gitlab.io/msu-autonomous-vehicle-simulator/classmavs__python_1_1mavs__interface_1_1_mavs_environment.html#ab8e46c79f0817e4056a64561c4e5cbfb
         # Add actors to the scene, in this case two vehicles which will drive around

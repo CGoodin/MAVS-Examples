@@ -39,6 +39,8 @@ sim.lidar.SetDisplayColorType("color")
 # Start the simulation main loop
 dt = 1.0/30.0 # time step, seconds
 n = 0 # loop counter
+current_throttle = 0.0
+max_throttle_step = 0.4*dt
 while (True):
     # tw0 is for timing purposes used later
     tw0 = time.time()
@@ -51,9 +53,12 @@ while (True):
                                    sim.veh.GetSpeed(),sim.veh.GetHeading())
         dc = sim.controller.GetDrivingCommand(dt)
 
+    throttle_step = min(max_throttle_step, dc.throttle - current_throttle)
+    throttle = current_throttle + throttle_step
     # Update the vehicle with the driving command
-    sim.veh.Update(sim.env, dc.throttle, dc.steering, dc.braking, dt)
-
+    sim.veh.Update(sim.env, throttle, dc.steering, dc.braking, dt)
+    current_throttle = throttle
+    
     # Get the current vehicle position
     position = sim.veh.GetPosition()
     orientation = sim.veh.GetOrientation()
@@ -74,13 +79,14 @@ while (True):
         sim.drive_cam.SetPose(position,orientation)
         sim.drive_cam.Update(sim.env,dt)
         sim.drive_cam.Display()
-        # Update the lidar 
-        sim.lidar.SetPose(position,orientation)
-        sim.lidar.Update(sim.env,dt)
-        sim.lidar.DisplayPerspective()
+        
 
         # Save labeled data fram when 'c' key is pressed
         if keyboard.is_pressed('c'):
+            # Update the lidar 
+            sim.lidar.SetPose(position,orientation)
+            sim.lidar.Update(sim.env,dt)
+            sim.lidar.DisplayPerspective()
             # print feedback that the frame is being saved
             print('Saving frame ' + str(n))
             sys.stdout.flush()
